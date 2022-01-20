@@ -143,9 +143,11 @@
 			lines += "<div class=\"block\"><h3>[category]:</h3>"
 			if(category == "Pipes")
 				lines += "<div class=\"item\">"
-				lines += "<a class='[piping_layer == PIPING_LAYER_REGULAR ? "linkOn" : "linkOff"]' href='?src=\ref[src];piping_layer=[PIPING_LAYER_REGULAR]'>Regular</a> "
-				lines += "<a class='[piping_layer == PIPING_LAYER_SUPPLY ? "linkOn" : "linkOff"]' href='?src=\ref[src];piping_layer=[PIPING_LAYER_SUPPLY]'>Supply</a> "
-				lines += "<a class='[piping_layer == PIPING_LAYER_SCRUBBER ? "linkOn" : "linkOff"]' href='?src=\ref[src];piping_layer=[PIPING_LAYER_SCRUBBER]'>Scrubber</a> "
+				lines += "<a class='[piping_layer == PIPING_LAYER_REGULAR ? "linkOn" : ""]' href='?src=\ref[src];piping_layer=[PIPING_LAYER_REGULAR]'>Regular</a> "
+				lines += "<a class='[piping_layer == PIPING_LAYER_SUPPLY ? "linkOn" : ""]' href='?src=\ref[src];piping_layer=[PIPING_LAYER_SUPPLY]'>Supply</a> "
+				lines += "<a class='[piping_layer == PIPING_LAYER_SCRUBBER ? "linkOn" : ""]' href='?src=\ref[src];piping_layer=[PIPING_LAYER_SCRUBBER]'>Scrubber</a> "
+				lines += "<a class='[piping_layer == PIPING_LAYER_AUX ? "linkOn" : ""]' href='?src=\ref[src];piping_layer=[PIPING_LAYER_AUX]'>Aux</a> "
+				lines += "<a class='[piping_layer == PIPING_LAYER_FUEL ? "linkOn" : ""]' href='?src=\ref[src];piping_layer=[PIPING_LAYER_FUEL]'>Fuel</a> "
 				lines += "</div>"
 			var/list/L = atmos_pipe_recipes[category]
 			for(var/i in 1 to L.len)
@@ -197,7 +199,16 @@
 		playeffect = FALSE
 		anyclicked = TRUE
 	if(href_list["piping_layer"])
+		var/static/list/valid = list(
+			PIPING_LAYER_AUX,
+			PIPING_LAYER_FUEL,
+			PIPING_LAYER_REGULAR,
+			PIPING_LAYER_SUPPLY,
+			PIPING_LAYER_SCRUBBER
+		)
 		piping_layer = text2num(href_list["piping_layer"])
+		if(!(piping_layer in valid))
+			piping_layer = PIPING_LAYER_REGULAR
 		playeffect = FALSE
 		anyclicked = TRUE
 	if(href_list["pipe_type"])
