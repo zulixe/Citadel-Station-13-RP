@@ -59,6 +59,7 @@ Buildable meters
 		src.req_one_access = make_from.req_one_access
 	color = make_from.pipe_color
 	pipe_type = make_from.type
+	piping_layer = make_from.piping_layer
 
 /obj/item/pipe/trinary/flippable/make_from_existing(obj/machinery/atmospherics/trinary/make_from)
 	..()
@@ -89,6 +90,8 @@ Buildable meters
 		if(PIPING_LAYER_AUX)
 			color = PIPE_COLOR_CYAN
 			name = "[initial(fakeA.name)] aux fitting"
+		if(PIPING_LAYER_DEFAULT)
+			name = "[initial(fakeA.name)]"
 	// Or if we were to do it the TG way...
 	//we don't do it the tg way
 	// pixel_x = PIPE_PIXEL_OFFSET_X(piping_layer)
